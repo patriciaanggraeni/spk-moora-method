@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\Normalization;
 use Illuminate\Database\Seeder;
 
 class NormalizationSeeder extends Seeder
@@ -12,6 +12,6 @@ class NormalizationSeeder extends Seeder
      */
     public function run(): void
     {
-        //
+        Normalization::calculateAndInsertNormalizations();
     }
 }

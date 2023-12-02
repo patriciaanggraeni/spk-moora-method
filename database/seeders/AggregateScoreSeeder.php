@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\AggregateScore;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -12,6 +13,6 @@ class AggregateScoreSeeder extends Seeder
      */
     public function run(): void
     {
-        //
+        AggregateScore::calculateAggregateScores();
     }
 }

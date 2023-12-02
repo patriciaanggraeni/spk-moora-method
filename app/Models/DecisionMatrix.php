@@ -6,7 +6,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * @method static updateOrCreate(array $array, float[]|int[] $array1)
+ * @method static where(string $string, $criterionId)
+ * @method static create(array $array)
  */
 class DecisionMatrix extends Model
 {
@@ -17,4 +18,5 @@ class DecisionMatrix extends Model
         'criterion_id',
         'value',
     ];
+    public $timestamps = false;
 }

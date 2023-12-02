@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\OptimizationAttribute;
 use Illuminate\Database\Seeder;
 
 class OptimizationAttributeSeeder extends Seeder
@@ -12,6 +12,6 @@ class OptimizationAttributeSeeder extends Seeder
      */
     public function run(): void
     {
-        //
+        OptimizationAttribute::calculateAndInsertAttributes();
     }
 }

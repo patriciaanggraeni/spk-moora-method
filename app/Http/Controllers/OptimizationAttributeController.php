@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Criterion;
+use App\Models\DecisionMatrix;
 use App\Models\OptimizationAttribute;
 use Illuminate\Http\Request;
 

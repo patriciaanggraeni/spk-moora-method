@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('aggregate_scores', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('alternative_id');
-            $table->decimal('score', 5);
+            $table->decimal('value', 10, 8);
             $table->foreign('alternative_id')->references('id')->on('alternatives')->onDelete('cascade');
         });
     }
