@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * @method static create(array $array)
+ * @method static distinct(string $string)
  */
 class Normalization extends Model
 {
@@ -22,7 +23,7 @@ class Normalization extends Model
 
     private static array $columns = [];
 
-    public static function calculateAndInsertNormalizations(): void
+    public static function createNormalizations(): void
     {
         $decisionMatrices = DecisionMatrix::all();
 

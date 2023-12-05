@@ -1,0 +1,20 @@
+main {
+    min-height: 100vh;
+    position: relative;
+    width: 100%;
+    background: linear-gradient(110.6deg, rgb(156, 116, 129) -18.3%, rgb(67, 54, 74) 16.4%, rgb(47, 48, 67) 68.2%, rgb(27, 23, 36) 99.1%);
+}
+
+.table-transparent {
+    --bs-table-bg: rgba(0, 0, 0, 0);
+}
+
+.glassmorphism {
+    background-color: rgba(255, 255, 255, 0.06);
+    -webkit-backdrop-filter: blur(15px);
+    backdrop-filter: blur(15px);
+    -webkit-box-shadow: 0 25px 23px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 25px 23px rgba(0, 0, 0, 0.15);
+    border: 2px solid rgba(255, 255, 255, 0.06);
+    border-radius: 8px;
+}

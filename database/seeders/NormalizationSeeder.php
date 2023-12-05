@@ -12,6 +12,6 @@ class NormalizationSeeder extends Seeder
      */
     public function run(): void
     {
-        Normalization::calculateAndInsertNormalizations();
+        Normalization::createNormalizations();
     }
 }

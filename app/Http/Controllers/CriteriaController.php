@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Criterion;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 
 class CriteriaController extends Controller
@@ -10,9 +13,16 @@ class CriteriaController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(): View|\Illuminate\Foundation\Application|Factory|Application
     {
-        //
+        $criteria = Criterion::all();
+
+        return view('criteria')->with([
+            'title' => 'Criteria',
+            'prev_step' => route('home'),
+            'next_step' => route('alternatives'),
+            'criteria' => $criteria,
+        ]);
     }
 
     /**

@@ -12,6 +12,6 @@ class OptimizationAttributeSeeder extends Seeder
      */
     public function run(): void
     {
-        OptimizationAttribute::calculateAndInsertAttributes();
+        OptimizationAttribute::createOptimizationAttributes();
     }
 }

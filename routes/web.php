@@ -1,7 +1,11 @@
 <?php
 
-use App\Models\AggregateScore;
-use App\Models\Normalization;
+use App\Http\Controllers\AggregateScoreController;
+use App\Http\Controllers\AlternativeController;
+use App\Http\Controllers\CriteriaController;
+use App\Http\Controllers\DecisionMatrixController;
+use App\Http\Controllers\NormalizationController;
+use App\Http\Controllers\OptimizationAttributeController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -23,3 +27,10 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/criteria', [CriteriaController::class, 'index'])->name('criteria');
+Route::get('/alternatives', [AlternativeController::class, 'index'])->name('alternatives');
+Route::get('/decision_matrices', [DecisionMatrixController::class, 'index'])->name('decision_matrices');
+Route::get('/normalizations', [NormalizationController::class, 'index'])->name('normalizations');
+Route::get('/optimization_attributes', [OptimizationAttributeController::class, 'index'])
+    ->name('optimization_attributes');
+Route::get('/aggregate_scores', [AggregateScoreController::class, 'index'])->name('aggregate_scores');

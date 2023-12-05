@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * @method static create(array $array)
+ * @method static distinct(string $string)
  */
 class OptimizationAttribute extends Model
 {
@@ -22,7 +23,7 @@ class OptimizationAttribute extends Model
 
     private static array $criterionWeights = [];
 
-    public static function calculateAndInsertAttributes(): void
+    public static function createOptimizationAttributes(): void
     {
         $normalizations = Normalization::all();
 

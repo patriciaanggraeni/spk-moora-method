@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 /**
  * @method static where(string $string, $criterionId)
  * @method static create(array $array)
+ * @method static distinct(string $string)
  */
 class DecisionMatrix extends Model
 {

@@ -16,7 +16,13 @@ class AlternativeController extends Controller
     public function index(): View|\Illuminate\Foundation\Application|Factory|Application
     {
         $alternatives = Alternative::all();
-        return view('alternatives.index', compact('alternatives'));
+
+        return view('alternatives')->with([
+            'title' => 'Alternatives',
+            'prev_step' => route('criteria'),
+            'next_step' => route('decision_matrices'),
+            'alternatives' => $alternatives
+        ]);
     }
 
     /**
