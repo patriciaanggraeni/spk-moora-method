@@ -23,6 +23,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $title = "SPK Metode MOORA";
+        return view('home', ['title' => $title]);
     }
 }

@@ -17,7 +17,7 @@ class CriteriaController extends Controller
     {
         $criteria = Criterion::all();
 
-        return view('criteria')->with([
+        return view('criteria.index')->with([
             'title' => 'Criteria',
             'prev_step' => route('home'),
             'next_step' => route('alternatives'),
@@ -30,7 +30,11 @@ class CriteriaController extends Controller
      */
     public function create()
     {
-        //
+        return view('criteria.create')->with([
+            'title' => 'Tambah Kriteria',
+            'prev_step' => route('criteria.index'),
+            'next_step' => route('alternatives'),
+        ]);
     }
 
     /**
@@ -38,7 +42,19 @@ class CriteriaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validatedData = $request->validate([
+            'name' => 'required|string|max:255',
+            'weight' => 'required|numeric|between:0,99.99',
+            'type' => 'required|in:benefit,cost',
+        ]);
+
+        $criterion = new Criterion;
+        $criterion->name = $validatedData['name'];
+        $criterion->weight = $validatedData['weight'];
+        $criterion->type = $validatedData['type'];
+        $criterion->save();
+
+        return redirect()->route('criteria.index')->with('success', 'Kriteria berhasil ditambahkan.');
     }
 
     /**
@@ -54,7 +70,12 @@ class CriteriaController extends Controller
      */
     public function edit(Criterion $criteria)
     {
-        //
+        return view('criteria.edit')->with([
+            'title' => 'Edit Kriteria',
+            'criteria' => $criteria,
+            'prev_step' => route('criteria.index'),
+            'next_step' => route('criteria.update', $criteria->id),
+        ]);
     }
 
     /**
@@ -62,7 +83,15 @@ class CriteriaController extends Controller
      */
     public function update(Request $request, Criterion $criteria)
     {
-        //
+        $validatedData = $request->validate([
+            'name' => 'required|string|max:255',
+            'weight' => 'required|numeric|min:0',
+            'type' => 'required|in:benefit,cost',
+        ]);
+
+        // Update data kriteria berdasarkan data yang divalidasi
+        $criteria->update($validatedData);
+        return redirect()->route('criteria.index')->with('success', 'Kriteria berhasil diperbarui.');
     }
 
     /**
@@ -70,6 +99,7 @@ class CriteriaController extends Controller
      */
     public function destroy(Criterion $criteria)
     {
-        //
+        $criteria->delete();
+        return redirect()->route('criteria.index')->with('success', 'Kriteria berhasil dihapus.');
     }
 }

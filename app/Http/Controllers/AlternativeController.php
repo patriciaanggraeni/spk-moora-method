@@ -19,7 +19,7 @@ class AlternativeController extends Controller
 
         return view('alternatives')->with([
             'title' => 'Alternatives',
-            'prev_step' => route('criteria'),
+            'prev_step' => route('criteria.index'),
             'next_step' => route('decision_matrices'),
             'alternatives' => $alternatives
         ]);
