@@ -20,7 +20,7 @@ class CriteriaController extends Controller
         return view('criteria.index')->with([
             'title' => 'Criteria',
             'prev_step' => route('home'),
-            'next_step' => route('alternatives'),
+            'next_step' => route('alternative.index'),
             'criteria' => $criteria,
         ]);
     }
@@ -33,7 +33,7 @@ class CriteriaController extends Controller
         return view('criteria.create')->with([
             'title' => 'Tambah Kriteria',
             'prev_step' => route('criteria.index'),
-            'next_step' => route('alternatives'),
+            'next_step' => route('alternative.index'),
         ]);
     }
 
@@ -89,7 +89,6 @@ class CriteriaController extends Controller
             'type' => 'required|in:benefit,cost',
         ]);
 
-        // Update data kriteria berdasarkan data yang divalidasi
         $criteria->update($validatedData);
         return redirect()->route('criteria.index')->with('success', 'Kriteria berhasil diperbarui.');
     }

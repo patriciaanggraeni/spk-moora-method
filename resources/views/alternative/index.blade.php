@@ -1,8 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-
-    <button onclick="window.location='{{ route('criteria.create') }}'" class="glassmorphism text-white mb-4 p-2">+ Tambah Kriteria</button>
+    <button onclick="window.location='{{ route('alternative.create') }}'" class="glassmorphism text-white mb-4 p-2">+ Tambah Alternatif</button>
 
     <div class="glassmorphism p-2">
         <div class="table-responsive">
@@ -11,21 +10,17 @@
                 <tr>
                     <th>#</th>
                     <th>Nama</th>
-                    <th>Bobot</th>
-                    <th>Tipe</th>
                     <th>Opsi</th>
                 </tr>
                 </thead>
                 <tbody>
-                @foreach($criteria as $i => $criterion)
+                @foreach($alternatives as $i => $alternative)
                     <tr>
                         <td>{{ ++$i }}</td>
-                        <td>{{ $criterion->name }}</td>
-                        <td>{{ $criterion->weight }}</td>
-                        <td>{{ $criterion->type }}</td>
+                        <td class="col-md-10">{{ $alternative->name }}</td>
                         <td>
-                            <a href="{{ route('criteria.edit', $criterion->id) }}" class="btn btn-warning btn-sm">Edit</a>
-                            <form action="{{ route('criteria.destroy', $criterion->id) }}" method="post" style="display: inline-block;">
+                            <a href="{{ route('alternative.edit', $alternative->id) }}" class="btn btn-warning btn-sm">Edit</a>
+                            <form action="{{ route('alternative.destroy', $alternative->id) }}" method="post" style="display: inline-block;">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Apakah Anda yakin ingin menghapus?')">Hapus</button>

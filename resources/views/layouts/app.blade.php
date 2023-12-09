@@ -28,7 +28,7 @@
                 <a href="{{ $prev_step }}" class="text-decoration-none text-white glassmorphism p-2">
                     Prev Step
                 </a>
-                @if(!request()->routeIs("criteria.edit"))
+                @if(!request()->routeIs("criteria.create") && !request()->routeIs("criteria.edit") && !request()->routeIs("alternative.create") && !request()->routeIs("alternative.edit"))
                     <a href="{{ $next_step }}" class="text-decoration-none text-white glassmorphism p-2">
                         Next Step
                     </a>

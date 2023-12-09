@@ -17,7 +17,7 @@ class AlternativeController extends Controller
     {
         $alternatives = Alternative::all();
 
-        return view('alternatives')->with([
+        return view('alternative.index')->with([
             'title' => 'Alternatives',
             'prev_step' => route('criteria.index'),
             'next_step' => route('decision_matrices'),
@@ -30,7 +30,11 @@ class AlternativeController extends Controller
      */
     public function create()
     {
-        //
+        return view('alternative.create')->with([
+            'title' => 'Tambah Alternatif',
+            'prev_step' => route('criteria.index'),
+            'next_step' => route('alternative.index'),
+        ]);
     }
 
     /**
@@ -38,7 +42,15 @@ class AlternativeController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validatedData = $request->validate([
+            'name' => 'required|string|max:255',
+        ]);
+
+        $criterion = new Alternative();
+        $criterion->name = $validatedData['name'];
+        $criterion->save();
+
+        return redirect()->route('alternative.index')->with('success', 'Alternatif berhasil ditambahkan.');
     }
 
     /**
@@ -54,7 +66,12 @@ class AlternativeController extends Controller
      */
     public function edit(Alternative $alternative)
     {
-        //
+        return view('alternative.edit')->with([
+            'title' => 'Edit Kriteria',
+            'alternative' => $alternative,
+            'prev_step' => route('alternative.index'),
+            'next_step' => route('alternative.update', $alternative->id),
+        ]);
     }
 
     /**
@@ -62,7 +79,13 @@ class AlternativeController extends Controller
      */
     public function update(Request $request, Alternative $alternative)
     {
-        //
+        $validatedData = $request->validate([
+            'name' => 'required|string|max:255',
+        ]);
+
+        // Update data kriteria berdasarkan data yang divalidasi
+        $alternative->update($validatedData);
+        return redirect()->route('alternative.index')->with('success', 'Alternatif berhasil diperbarui.');
     }
 
     /**
@@ -70,6 +93,7 @@ class AlternativeController extends Controller
      */
     public function destroy(Alternative $alternative)
     {
-        //
+        $alternative->delete();
+        return redirect()->route('alternative.index')->with('success', 'Alternative berhasil dihapus.');
     }
 }
