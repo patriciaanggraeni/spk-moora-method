@@ -1,6 +1,7 @@
 <!doctype html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
+    @vite(['resources/sass/app.scss', 'resources/js/app.js', 'resources/css/app.css'])
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -11,7 +12,7 @@
     <link rel="dns-prefetch" href="//fonts.bunny.net">
     <link rel="stylesheet" href="https://fonts.bunny.net/css?family=Nunito">
 
-    @vite(['resources/sass/app.scss', 'resources/js/app.js', 'resources/css/app.css'])
+
 </head>
 <body>
 <div id="app">
@@ -27,9 +28,11 @@
                 <a href="{{ $prev_step }}" class="text-decoration-none text-white glassmorphism p-2">
                     Prev Step
                 </a>
-                <a href="{{ $next_step }}" class="text-decoration-none text-white glassmorphism p-2">
-                    Next Step
-                </a>
+                @if(!request()->routeIs("criteria.create") && !request()->routeIs("criteria.edit") && !request()->routeIs("alternative.create") && !request()->routeIs("alternative.edit"))
+                    <a href="{{ $next_step }}" class="text-decoration-none text-white glassmorphism p-2">
+                        Next Step
+                    </a>
+                @endif
             </div>
         </div>
 </main>
