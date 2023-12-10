@@ -6,7 +6,6 @@ use App\Models\OptimizationAttribute;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Foundation\Application;
-use Illuminate\Http\Request;
 
 class OptimizationAttributeController extends Controller
 {
@@ -25,53 +24,5 @@ class OptimizationAttributeController extends Controller
             'criteriaLength' => $criteriaLength,
             'optimizationAttributes' => $optimizationAttributes,
         ]);
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(OptimizationAttribute $optimizationAttribute)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(OptimizationAttribute $optimizationAttribute)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, OptimizationAttribute $optimizationAttribute)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(OptimizationAttribute $optimizationAttribute)
-    {
-        //
     }
 }

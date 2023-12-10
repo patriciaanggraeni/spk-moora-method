@@ -2,13 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Alternative;
-use App\Models\Criterion;
 use App\Models\DecisionMatrix;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
-use Illuminate\Http\Request;
 
 class DecisionMatrixController extends Controller
 {
@@ -19,7 +16,7 @@ class DecisionMatrixController extends Controller
 
         return view('decision-matrices')->with([
             'title' => 'Decision Matrices',
-            'prev_step' => route('alternatives'),
+            'prev_step' => route('alternatives.index'),
             'next_step' => route('normalizations'),
             'criteriaLength' => $criteriaLength,
             'decisionMatrices' => $decisionMatrices,

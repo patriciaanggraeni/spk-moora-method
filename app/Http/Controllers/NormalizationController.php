@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\AggregateScore;
 use App\Models\Normalization;
+use App\Models\OptimizationAttribute;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
-use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Artisan;
 
 class NormalizationController extends Controller
 {
@@ -15,6 +17,8 @@ class NormalizationController extends Controller
      */
     public function index(): View|\Illuminate\Foundation\Application|Factory|Application
     {
+        $this->dbSeed();
+
         $criteriaLength = Normalization::distinct('criterion_id')->count('criterion_id');
         $normalizations = Normalization::all()->groupBy('alternative_id');
 
@@ -27,51 +31,12 @@ class NormalizationController extends Controller
         ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    private function dbSeed(): void
     {
-        //
-    }
+        Normalization::truncate();
+        OptimizationAttribute::truncate();
+        AggregateScore::truncate();
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(Normalization $normalization)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Normalization $normalization)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Normalization $normalization)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Normalization $normalization)
-    {
-        //
+        Artisan::call('db:seed');
     }
 }
