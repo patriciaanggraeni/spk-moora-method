@@ -28,7 +28,7 @@ class AggregateScore extends Model
         $optimizationAttributes = OptimizationAttribute::all();
 
         foreach ($optimizationAttributes as $optimizationAttribute) {
-            $alternativeId = $optimizationAttribute->id;
+            $alternativeId = $optimizationAttribute->alternative_id;
             $criterionId = $optimizationAttribute->criterion_id;
             $value = $optimizationAttribute->value;
 

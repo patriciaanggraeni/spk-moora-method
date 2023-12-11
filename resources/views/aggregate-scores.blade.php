@@ -17,8 +17,8 @@
                 @foreach($aggregateScores as $i => $cell)
                     <tr>
                         <td class="fw-bold">A{{ $i+1 }}</td>
-                        <td>{{ $alternatives[$i+1]['totalBenefit'] }}</td>
-                        <td>{{ $alternatives[$i+1]['totalCost'] }}</td>
+                        <td>{{ $alternatives[$cell->alternative_id]['totalBenefit'] }}</td>
+                        <td>{{ $alternatives[$cell->alternative_id]['totalCost'] }}</td>
                         <td>{{ $cell->value }}</td>
                         <td>{{ $ranking[$i] }}</td>
                     </tr>
