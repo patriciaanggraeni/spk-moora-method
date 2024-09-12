@@ -1,17 +1,35 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container mx-auto">
+    <div class="container glassmorphism mx-auto p-4">
         <div class="col-md-7 mx-auto">
-            <form method="post" action="{{ route('alternative.store') }}">
+            <form method="post" action="{{ route('alternatives.store') }}">
                 @csrf
-                <div class="form-group">
-                    <label for="name" class="text-white fs-5 mb-2">Nama Alternatif:</label>
-                    <input type="text" name="name" id="name" class="form-control" required maxlength="255"
-                    placeholder="Masukkan nama alternatif...">
+                <div class="mb-3">
+                    <label for="name" class="form-label text-white fw-bold">Alternative Name</label>
+                    <input class="form-control text-white @error('name') is-invalid @enderror" name="name" id="name"
+                           placeholder="Enter an alternative name *" value="{{ old('name') ?? '' }}">
+                    @error('name')
+                    <small class="text-danger">{{ $message }}</small>
+                    @enderror
                 </div>
 
-                <button type="submit" class="glassmorphism btn btn-primary mt-5">Simpan</button>
+                @foreach($criteria as $criterion)
+                    <div class="mb-3">
+                        <label for="criterion_{{ $criterion->id }}" class="form-label text-white fw-bold">
+                            Value for {{ $criterion->name }}
+                        </label>
+                        <input
+                            class="form-control @error('criterion_' . $criterion->id) is-invalid @enderror"
+                            name="criterion_{{ $criterion->id }}" id="criterion_{{ $criterion->id }}"
+                            placeholder="Enter a criterion value *" value="{{ old('criterion_' . $criterion->id) }}">
+                        @error('criterion_' . $criterion->id)
+                        <small class="text-danger">{{ $message }}</small>
+                        @enderror
+                    </div>
+                @endforeach
+
+                <button type="submit" class="btn btn-light mt-5">Save</button>
             </form>
         </div>
     </div>

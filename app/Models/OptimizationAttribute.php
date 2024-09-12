@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 /**
  * @method static create(array $array)
  * @method static distinct(string $string)
+ * @method static truncate()
  */
 class OptimizationAttribute extends Model
 {

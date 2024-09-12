@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('alternative_id');
             $table->unsignedBigInteger('criterion_id');
-            $table->decimal('value', 13, 12);
+            $table->decimal('value', 16, 12);
             $table->foreign('alternative_id')->references('id')->on('alternatives')->onDelete('cascade');
             $table->foreign('criterion_id')->references('id')->on('criteria')->onDelete('cascade');
         });

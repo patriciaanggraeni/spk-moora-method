@@ -6,7 +6,9 @@ use App\Models\Criterion;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class CriteriaController extends Controller
 {
@@ -19,86 +21,98 @@ class CriteriaController extends Controller
 
         return view('criteria.index')->with([
             'title' => 'Criteria',
-            'prev_step' => route('home'),
-            'next_step' => route('alternative.index'),
+            'next_step' => route('alternatives.index'),
             'criteria' => $criteria,
+        ]);
+    }
+
+
+    protected function validator(array $data): \Illuminate\Validation\Validator
+    {
+        return Validator::make($data, [
+            'name' => 'required|string|max:255',
+            'weight' => 'required|numeric|between:0,99.99',
+            'type' => 'required|in:benefit,cost',
         ]);
     }
 
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(): View|\Illuminate\Foundation\Application|Factory|Application
     {
         return view('criteria.create')->with([
-            'title' => 'Tambah Kriteria',
-            'prev_step' => route('criteria.index'),
-            'next_step' => route('alternative.index'),
+            'title' => 'Add Criteria',
         ]);
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(Request $request): RedirectResponse
     {
-        $validatedData = $request->validate([
-            'name' => 'required|string|max:255',
-            'weight' => 'required|numeric|between:0,99.99',
-            'type' => 'required|in:benefit,cost',
+        $validator = $this->validator($request->all());
+
+        if ($validator->fails()) {
+            return back()
+                ->withErrors($validator)
+                ->withInput();
+        }
+
+        Criterion::create([
+            'name' => $request->input('name'),
+            'weight' => $request->input('weight'),
+            'type' => $request->input('type'),
         ]);
 
-        $criterion = new Criterion;
-        $criterion->name = $validatedData['name'];
-        $criterion->weight = $validatedData['weight'];
-        $criterion->type = $validatedData['type'];
-        $criterion->save();
-
-        return redirect()->route('criteria.index')->with('success', 'Kriteria berhasil ditambahkan.');
+        return redirect()->route('criteria.index')->with('success', 'Criterion added successfully.');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Criterion $criteria)
-    {
-        //
-    }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Criterion $criteria)
+    public function edit(Criterion $criteria): View|\Illuminate\Foundation\Application|Factory|Application
     {
         return view('criteria.edit')->with([
-            'title' => 'Edit Kriteria',
+            'title' => 'Edit Criteria',
             'criteria' => $criteria,
-            'prev_step' => route('criteria.index'),
-            'next_step' => route('criteria.update', $criteria->id),
         ]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Criterion $criteria)
+    public function update(Request $request, Criterion $criteria): RedirectResponse
     {
-        $validatedData = $request->validate([
-            'name' => 'required|string|max:255',
-            'weight' => 'required|numeric|min:0',
-            'type' => 'required|in:benefit,cost',
+        $validator = $this->validator($request->all());
+
+        if ($validator->fails()) {
+            return back()
+                ->withErrors($validator)
+                ->withInput();
+        }
+
+        $criteria->update([
+            'name' => $request->input('name'),
+            'weight' => $request->input('weight'),
+            'type' => $request->input('type'),
         ]);
 
-        $criteria->update($validatedData);
-        return redirect()->route('criteria.index')->with('success', 'Kriteria berhasil diperbarui.');
+        return redirect()->route('criteria.index')->with('success', 'Criterion updated successfully.');
     }
+
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Criterion $criteria)
+    public function destroy(Criterion $criteria): RedirectResponse
     {
+        $criteria->decisionMatrices()->delete();
+
         $criteria->delete();
-        return redirect()->route('criteria.index')->with('success', 'Kriteria berhasil dihapus.');
+
+        return redirect()->route('criteria.index')->with('success', 'Criterion deleted successfully.');
     }
+
 }

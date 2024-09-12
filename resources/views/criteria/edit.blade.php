@@ -1,31 +1,48 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container mx-auto">
+    <div class="container glassmorphism mx-auto p-4">
         <div class="col-md-7 mx-auto">
-            <form action="{{ $next_step }}" method="post">
+            <form method="post" action="{{ route('criteria.update', [$criteria->id]) }}">
                 @csrf
                 @method('PUT')
 
-                <div class="form-group">
-                    <label for="name" class="text-white fs-5 mb-2">Nama Kriteria:</label>
-                    <input type="text" value="{{ $criteria->name }}" name="name" id="name" class="form-control" required maxlength="255">
+                <div class="mb-3">
+                    <label for="name" class="form-label text-white fw-bold">Criterion Name</label>
+                    <input class="form-control text-white @error('name') is-invalid @enderror" name="name" id="name"
+                           placeholder="Enter an criterion name *" value="{{ old('name') ?? $criteria->name }}">
+                    @error('name')
+                    <small class="text-danger">{{ $message }}</small>
+                    @enderror
                 </div>
 
-                <div class="form-group">
-                    <label for="weight" class="text-white fs-5 mt-3 mb-2">Bobot Kriteria:</label>
-                    <input type="number" equired min="0" max="99.99" step="0.01" value="{{ $criteria->weight }}" name="weight" id="weight" class="form-control" required min="0" max="99.99" step="0.01>
+                <div class="mb-3">
+                    <label for="weight" class="form-label text-white fw-bold">Criterion Weight</label>
+                    <input class="form-control text-white @error('weight') is-invalid @enderror" name="weight"
+                           id="weight" placeholder="Enter an criterion weight *"
+                           value="{{ old('weight') ?? $criteria->weight }}">
+                    @error('weight')
+                    <small class="text-danger">{{ $message }}</small>
+                    @enderror
                 </div>
 
-                <div class="form-group">
-                    <label for="type" class="text-white fs-5 mt-3 mb-2">Jenis Kriteria:</label>
-                    <select name="type" id="type" class="form-control" required>
-                        <option value="benefit" {{ $criteria->type == "benefit" ? "selected" : ""}}>Benefit</option>
-                        <option value="cost" {{ $criteria->type == "cost" ? "selected" : "" }}>Cost</option>
+                <div class="mb-3">
+                    <label for="type" class="form-label text-white fw-bold">Criterion Type</label>
+                    <select name="type" id="type" class="form-control @error('type') is-invalid @enderror">
+                        <option>Select the criteria type *</option>
+                        <option value="benefit" {{ old('type') || $criteria->type == 'benefit' ? 'selected' : '' }}>
+                            Benefit
+                        </option>
+                        <option value="cost" {{ old('type') || $criteria->type == 'cost' ? 'selected' : '' }}>
+                            Cost
+                        </option>
                     </select>
+                    @error('type')
+                    <small class="text-danger">{{ $message }}</small>
+                    @enderror
                 </div>
-                    
-                <button type="submit" class="btn btn-primary glassmorphism mt-3">Simpan Perubahan</button>
+
+                <button type="submit" class="btn btn-light mt-5">Save</button>
             </form>
         </div>
     </div>
